@@ -1,0 +1,200 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Prime Imóveis e Regularização | Atendimento</title><style>
+:root{--r:#d7192d;--d:#171719;--bg:#f4f4f6;--mut:#777;--line:#e8e8eb;--white:#fff}*{box-sizing:border-box}body{margin:0;background:var(--bg);font:14px Arial,sans-serif;color:#222}button,input,select,textarea{font:inherit}button{cursor:pointer}.brandbar{background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:9px 4%;gap:15px;position:sticky;top:0;z-index:5}.logo{width:290px;height:88px;object-fit:contain;flex-shrink:0}.switch{display:flex;gap:7px;flex-wrap:wrap}.switch button,.btn{border:0;border-radius:8px;padding:10px 14px;background:#eee;color:#222;font-weight:700}.switch button.active,.btn{background:var(--r);color:#fff}.shell{display:flex;min-height:calc(100vh - 82px)}aside{width:235px;background:var(--d);color:white;padding:20px 13px;flex-shrink:0}aside .caption{color:#aaa;font-size:10px;letter-spacing:1px;padding:10px}.nav button{display:block;width:100%;text-align:left;border:0;background:transparent;color:#ddd;padding:12px;border-radius:7px;margin:3px 0}.nav button.active,.nav button:hover{background:#343438;border-left:3px solid var(--r)}main{flex:1;min-width:0;padding:25px;max-width:1450px;margin:auto;width:100%}.topline{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:20px}.topline h1{font-size:25px;margin:0 0 5px}.muted{color:var(--mut);font-size:12px}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin:18px 0}.card,.panel{background:#fff;border:1px solid var(--line);border-radius:11px;padding:17px}.card small{color:var(--mut)}.card b{display:block;font-size:26px;margin:8px 0}.cols{display:grid;grid-template-columns:1.3fr 1fr;gap:14px}.panel h3{margin:0 0 15px}.rowitem{padding:12px 0;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:10px}.tag{background:#f1f1f2;border-radius:20px;padding:5px 9px;font-size:11px}.red{background:#fff0f1;color:#b7192b}.green{background:#eaf7ef;color:#23733e}.section{display:none}.section.show{display:block}.tablewrap{overflow:auto}table{width:100%;border-collapse:collapse;min-width:570px}td,th{text-align:left;border-bottom:1px solid var(--line);padding:12px 8px;font-size:12px}th{color:#777}.fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field label{display:block;color:#666;font-size:12px;margin-bottom:6px}.field input,.field select,.field textarea{width:100%;padding:11px;border:1px solid #ddd;border-radius:7px;background:white}.field{margin:10px 0}.notice{padding:12px;background:#fff7e7;border:1px solid #f1dfb8;border-radius:8px;color:#76551c;font-size:12px;margin:12px 0}.publichero{background:#1b1b1e;color:#fff;border-radius:14px;padding:35px;margin-bottom:18px}.publichero h1{font-size:30px;max-width:600px}.listing{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}.property{background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden}.photo{height:125px;background:linear-gradient(135deg,#ddd,#f5f5f5);display:grid;place-items:center;color:#777}.property div:last-child{padding:14px}.hide{display:none!important}.foot{padding:25px;text-align:center;color:#888;font-size:11px}@media(max-width:850px){.grid{grid-template-columns:repeat(2,1fr)}.cols{grid-template-columns:1fr}.listing{grid-template-columns:repeat(2,1fr)}}@media(max-width:620px){.brandbar{align-items:flex-start;flex-direction:column}.logo{width:245px;height:74px}.shell{display:block}aside{width:100%;padding:10px}.nav{display:flex;overflow:auto;gap:4px}.nav button{white-space:nowrap;width:auto;font-size:11px;padding:10px}.caption{display:none}main{padding:14px}.grid{gap:8px}.card{padding:12px}.card b{font-size:22px}.fields{grid-template-columns:1fr}.listing{grid-template-columns:1fr}.publichero{padding:22px}.publichero h1{font-size:24px}}
+</style><style>
+.public-links a{color:#a6192a;font-weight:bold;text-decoration:none;font-size:13px}
+#prime-chat-toggle{position:fixed;bottom:20px;right:18px;z-index:9500;background:#c51d31;color:#fff;border:0;border-radius:35px;padding:15px 20px;font-weight:700;box-shadow:0 10px 25px #0003}
+#prime-chat-panel{display:none;position:fixed;bottom:83px;right:18px;width:min(390px,calc(100vw - 28px));height:min(590px,calc(100dvh - 110px));background:white;border:1px solid #ddd;box-shadow:0 16px 52px #0003;border-radius:18px;overflow:hidden;z-index:9501;flex-direction:column;color:#20232a;font-family:Arial,sans-serif}
+#prime-chat-panel.open{display:flex}.pc-head{display:flex;justify-content:space-between;align-items:center;background:#c51d31;color:#fff;padding:16px;min-height:61px}.pc-head strong{font-size:15px}.pc-head button{font-size:24px;border:0;background:transparent;color:white;cursor:pointer}
+.pc-log{flex:1;overflow:auto;padding:15px;background:#f6f7f9}.pc-msg{white-space:pre-wrap;max-width:89%;padding:11px 12px;margin-bottom:10px;border-radius:12px;background:#fff;border:1px solid #e8e9eb;font-size:14px;line-height:1.4}.pc-msg.user{margin-left:auto;background:#fce7eb;border-color:#f1c0c8}.pc-choices{display:flex;gap:7px;flex-wrap:wrap;padding:9px 12px;background:white}.pc-choices button{border:1px solid #c51d31;background:white;color:#9b1526;border-radius:22px;padding:8px 11px;font-size:12px;cursor:pointer}.pc-form{display:flex;gap:8px;padding:10px;background:white}.pc-form input{flex:1;min-width:0;border:1px solid #d7d7d9;border-radius:9px;padding:11px}.pc-form button{border:0;border-radius:9px;background:#c51d31;color:#fff;padding:0 13px;font-weight:700}.pc-form button:disabled{opacity:.5}.pc-note{padding:0 12px 10px;background:#fff;color:#616671;font-size:11px;line-height:1.4}.pc-note a{color:#9b1526}
+</style><style id="prime-chat-style">#prime-chat-toggle{position:fixed;bottom:20px;right:20px;z-index:900;border:0;border-radius:30px;background:#d7192d;color:white;padding:14px 18px;font-weight:bold;box-shadow:0 5px 18px #0003}#prime-chat-panel{display:none;position:fixed;bottom:80px;right:20px;width:min(365px,calc(100vw - 30px));height:min(530px,calc(100vh - 110px));z-index:901;background:#fff;border:1px solid #ddd;border-radius:15px;box-shadow:0 12px 40px #0003;overflow:hidden;flex-direction:column}#prime-chat-panel.open{display:flex}.pc-head{background:#d7192d;color:#fff;padding:15px;display:flex;justify-content:space-between;align-items:center}.pc-head button{background:transparent;color:#fff;border:0;font-size:24px}.pc-log{flex:1;overflow:auto;padding:14px;background:#f7f7f8}.pc-bubble{padding:10px 12px;border-radius:12px;margin:0 0 9px;max-width:90%;background:#fff;border:1px solid #ddd;white-space:pre-wrap}.pc-bubble.visitor{margin-left:auto;background:#fce7e9;border-color:#f5c5ca}.pc-choices{display:flex;flex-wrap:wrap;gap:6px;padding:8px}.pc-choices button{border:1px solid #d7192d;border-radius:20px;padding:7px 10px;background:#fff;color:#a10e1e}.pc-form{display:flex;gap:6px;padding:10px;border-top:1px solid #eee}.pc-form input{flex:1;min-width:0;padding:10px;border:1px solid #ccc;border-radius:8px}.pc-form button{border:0;border-radius:8px;background:#d7192d;color:#fff;padding:0 12px}.pc-note{font-size:10px;padding:0 12px 9px;color:#666}</style>
+<style id="prime-access-styles">
+.brandbar{min-height:112px;flex-direction:row;align-items:center;gap:12px;flex-wrap:wrap}
+.brandbar .logo{display:block;width:min(340px,82vw);height:auto;max-height:96px;object-fit:contain;flex-shrink:1;max-width:100%}
+.public-links a{display:inline-flex;align-items:center;justify-content:center;background:#b41629;color:#fff;padding:13px 17px;border-radius:10px;font-size:14px}
+#prime-team-area{display:none;max-width:980px;margin:0 auto;padding:18px 14px 30px}
+body.prime-team-open #prime-team-area{display:block}
+body.prime-team-open #public{display:none}
+body.prime-team-open #prime-chat-toggle,body.prime-team-open #prime-chat-panel{display:none!important}
+.prime-team-toolbar{display:flex;gap:10px;justify-content:space-between;align-items:center;flex-wrap:wrap;margin-bottom:15px}
+.prime-team-toolbar h1{font-size:23px;margin:0 0 5px}
+.prime-team-tabs{display:flex;gap:8px;flex-wrap:wrap}
+.prime-team-tabs button,.prime-go-back{border:1px solid #dedee2;background:#fff;border-radius:9px;padding:12px 15px;color:#333;font-size:14px;font-weight:700}
+.prime-team-tabs button.active{background:#b41629;color:#fff;border-color:#b41629}
+#prime-team-note{padding:12px;background:#fff;border:1px solid #e5e5e9;border-radius:10px;margin:8px 0 13px;font-size:13px;line-height:1.45}
+.prime-login-card{background:#fff;border:1px solid #dfdfe3;border-radius:14px;padding:18px}
+.prime-login-card h2{margin:0 0 6px;font-size:24px}
+.prime-login-card .tiny{font-size:12px;color:#6f7480;margin:0 0 16px}
+.prime-access-form{display:grid;gap:12px}
+.prime-access-form label{display:block;font-size:13px;color:#575c67;margin-bottom:6px}
+.prime-access-form input{width:100%;padding:12px;border:1px solid #d5d8de;border-radius:9px;background:#fff}
+.prime-access-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.prime-access-submit,.prime-open-full{border:0;border-radius:10px;padding:12px 16px;background:#b41629;color:#fff;font-weight:700}
+.prime-access-link{border:0;background:none;color:#a51e30;text-decoration:underline;font-weight:700;padding:8px 0}
+#prime-access-error{min-height:20px;color:#a51e30;font-size:13px;white-space:pre-wrap}
+.prime-access-tip{font-size:12px;color:#6e7380;line-height:1.5}
+@media(max-width:620px){.brandbar{padding:12px 4%;min-height:unset;align-items:center;flex-direction:column;gap:10px}.brandbar .logo{width:min(300px,78vw);height:auto;max-height:86px}.public-links a{padding:12px 15px}.prime-team-toolbar h1{font-size:21px}.prime-login-card{padding:16px}.prime-login-card h2{font-size:21px}.prime-access-actions{flex-direction:column;align-items:stretch}.prime-access-submit,.prime-open-full{width:100%}}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" defer></script>
+</head><body>
+<header class="brandbar"><img class="logo" src="prime_logo.png" alt="Prime Imóveis e Regularização"><nav class="public-links"><a href="#acesso-equipe" id="access-team-link" rel="nofollow">Acesso da equipe</a></nav></header>
+
+<section id="prime-team-area" aria-label="Acesso interno Prime Imóveis">
+ <div class="prime-team-toolbar">
+  <div><h1>Acesso da equipe</h1><div class="muted">Área interna da Prime Imóveis e Regularização</div></div>
+  <button class="prime-go-back" id="prime-team-back" type="button">← Voltar ao site</button>
+ </div>
+ <div class="prime-team-tabs" role="group" aria-label="Tipos de acesso">
+  <button type="button" data-prime-role="ceo">Painel do CEO</button>
+  <button type="button" data-prime-role="team" class="active">Minha equipe</button>
+ </div>
+ <p id="prime-team-note">Minha equipe: entre com o e-mail e a senha já cadastrados. Depois do login, o painel abrirá normalmente.</p>
+ <div class="prime-login-card">
+   <h2 id="prime-access-title">Minha equipe</h2>
+   <p class="tiny" id="prime-access-subtitle">Use a conta da equipe para entrar e visualizar seus atendimentos.</p>
+   <form id="prime-access-form" class="prime-access-form">
+     <input type="hidden" id="prime-access-role" value="team">
+     <div>
+       <label for="prime-access-email">E-mail</label>
+       <input id="prime-access-email" type="email" autocomplete="username" placeholder="Digite o e-mail cadastrado" required>
+     </div>
+     <div>
+       <label for="prime-access-password">Senha</label>
+       <input id="prime-access-password" type="password" autocomplete="current-password" placeholder="Digite sua senha" required>
+     </div>
+     <div class="prime-access-actions">
+       <button class="prime-access-submit" type="submit">Entrar no painel</button>
+       <button class="prime-access-link" id="prime-forgot-btn" type="button">Esqueci minha senha</button>
+     </div>
+     <div id="prime-access-error" role="status" aria-live="polite"></div>
+     <div class="prime-access-tip">Se preferir, você também pode abrir o painel completo direto: <a href="atendimentos.html" id="prime-open-full-link">abrir atendimentos.html</a></div>
+   </form>
+ </div>
+</section>
+
+<div id="public" class="public"><main><section class="publichero"><span style="color:#ff6674;font-weight:bold">PRIME IMÓVEIS E REGULARIZAÇÃO</span><h1>Encontre seu próximo imóvel com segurança.</h1><p>Compra, venda, aluguel e serviços de regularização imobiliária em Belém e região.</p><button class="btn" onclick="document.getElementById('prime-chat-toggle').click()">Falar com a equipe</button></section><div class="topline"><div><h1>Imóveis em destaque</h1><span class="muted">Consulte oportunidades disponíveis</span></div></div><div class="fields" style="margin-bottom:15px"><div class="field"><label>Finalidade</label><select><option>Todas</option><option>Venda</option><option>Aluguel</option></select></div><div class="field"><label>Tipo de imóvel</label><select><option>Todos</option><option>Casa</option><option>Apartamento</option><option>Terreno</option><option>Comercial</option></select></div></div><div class="listing"><p class="muted">As oportunidades disponíveis serão apresentadas pela nossa equipe. Use o atendimento para consultar imóveis e valores atualizados.</p></div><div class="panel" style="margin-top:18px"><h3>Regularização imobiliária</h3><p>Orientação para documentação, escrituras, inventários e regularização de propriedades.</p><button class="btn" onclick="document.getElementById('prime-chat-toggle').click()">Solicitar atendimento</button></div></main><div class="foot">Prime Imóveis e Regularização · Belém, Pará</div></div>
+<button type="button" id="prime-chat-toggle" aria-label="Abrir atendimento">💬 Atendimento</button>
+<section id="prime-chat-panel" aria-label="Atendimento Prime Imóveis" role="dialog" aria-modal="false">
+  <div class="pc-head"><strong>Prime Imóveis • Atendimento</strong><button id="pc-close" type="button" aria-label="Fechar">×</button></div>
+  <div class="pc-log" id="pc-log" aria-live="polite"></div>
+  <div class="pc-choices" id="pc-choices"></div>
+  <form class="pc-form" id="pc-form"><input id="pc-input" aria-label="Sua mensagem" maxlength="800" autocomplete="off" placeholder="Digite aqui..." required><button type="submit" id="pc-send">Enviar</button></form>
+  <div class="pc-note" id="pc-note">Seu contato será usado para responder sobre imóveis e regularização. Nada será enviado antes da sua autorização.</div>
+</section>
+<script>
+(()=>{
+'use strict';
+const ENDPOINT='https://nyjrvrdcgsktebyewlsr.supabase.co/functions/v1/Prime-chat';
+const modal=document.getElementById('prime-chat-panel'),log=document.getElementById('pc-log'),choices=document.getElementById('pc-choices');
+const form=document.getElementById('pc-form'),field=document.getElementById('pc-input'),sendButton=document.getElementById('pc-send'),note=document.getElementById('pc-note');
+let step='start',info={},transcript=[],busy=false,pollTimer=null,session=null,renderedSignature='';
+const categories={'Comprar imóvel':'buy','Alugar imóvel':'rent','Anunciar imóvel':'advertise','Regularização de imóvel':'regularization','Outros assuntos':'other'};
+function showMessage(msg,sender='bot',record=true){const el=document.createElement('div');el.className='pc-msg'+(sender==='visitor'?' user':'');el.textContent=msg;log.appendChild(el);log.scrollTop=log.scrollHeight;if(record)transcript.push({sender_type:sender==='visitor'?'visitor':'bot',message:msg});}
+function buttons(items){choices.replaceChildren();items.forEach(label=>{const b=document.createElement('button');b.type='button';b.textContent=label;b.onclick=()=>respond(label);choices.appendChild(b)})}
+function setInput(enabled,placeholder='Digite aqui...'){field.disabled=!enabled;sendButton.disabled=!enabled;field.placeholder=placeholder;form.style.display=enabled?'flex':'none';}
+function start(){step='category';info={};transcript=[];log.replaceChildren();choices.replaceChildren();setInput(true);showMessage('Olá! 👋 Bem-vindo à Prime Imóveis e Regularização. Como podemos ajudar?');buttons(Object.keys(categories))}
+async function call(action,payload={}){const response=await fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action,...payload})});let data;try{data=await response.json()}catch{throw new Error('Servidor indisponível')};if(!response.ok||!data.ok)throw new Error(data.error||'Falha de conexão');return data;}
+function token(){const bytes=new Uint8Array(32);crypto.getRandomValues(bytes);return Array.from(bytes,x=>x.toString(16).padStart(2,'0')).join('')}
+function saveSession(){try{sessionStorage.setItem('prime_chat_session',JSON.stringify(session))}catch{}}
+function refreshDisplay(messages){const sig=messages.map(m=>m.id).join('|');if(sig===renderedSignature)return;renderedSignature=sig;log.replaceChildren();for(const m of messages)showMessage(m.message,m.sender_type,false)}
+async function sync(){if(!session)return;try{const response=await call('visitor_thread',{conversation_id:session.id,token:session.token});refreshDisplay(response.messages);if(['completed','cancelled'].includes(response.status)){step='closed';setInput(false);note.textContent='Este atendimento foi encerrado.'}}catch{ /* Conexão instável: próxima atualização tentará novamente */ }}
+function startPoll(){if(pollTimer)clearInterval(pollTimer);pollTimer=setInterval(()=>{if(modal.classList.contains('open'))sync()},12000)}
+async function finish(){if(busy)return;busy=true;choices.replaceChildren();setInput(false);note.textContent='Enviando seu atendimento...';const visitorToken=token();try{const data=await call('create',{category:info.category,name:info.name,phone:info.phone,summary:info.summary||info.details||info.location||info.category,transcript,token:visitorToken,consent:true,website:''});session={id:data.conversation_id,token:visitorToken};saveSession();step='live';note.textContent='Atendimento registrado. Você pode conversar com a equipe por aqui.';await sync();startPoll();setInput(true,'Escreva para a equipe...')}catch(e){step='consent';note.textContent=e.message||'Não foi possível enviar';buttons(['Tentar enviar novamente','Cancelar'])}finally{busy=false}}
+function respond(raw){const value=String(raw||'').trim();if(!value||busy)return;
+ if(step==='consent'){if(value==='Cancelar'){start();return}if(value==='Autorizo e enviar'||value==='Tentar enviar novamente'){finish();return}}
+ if(step==='closed')return;
+ if(step==='live'){sendLive(value);return}
+ if(value.length>800)return;
+ showMessage(value,'visitor');choices.replaceChildren();
+ switch(step){
+ case 'category': if(!categories[value]){showMessage('Selecione uma das opções para continuar.');buttons(Object.keys(categories));return}info.category=categories[value];if(info.category==='buy'||info.category==='rent'){step='type';showMessage('Qual tipo de imóvel você procura?');buttons(['Casa','Apartamento','Terreno','Comercial','Ainda não sei'])}else{step='details';showMessage(info.category==='advertise'?'Qual imóvel você deseja anunciar? Conte o tipo e o bairro.':info.category==='regularization'?'Qual questão de documentação ou regularização você precisa resolver?':'Conte brevemente a sua dúvida.')}break;
+ case 'type': info.propertyType=value;step='location';showMessage('Em qual bairro ou região você procura?');break;
+ case 'location':info.location=value;step='budget';showMessage('Qual faixa de valor você procura? Se não souber, responda “a combinar”.');break;
+ case 'budget':info.budget=value;info.summary=`${info.propertyType}; bairro ${info.location}; faixa ${info.budget}`;step='name';showMessage('Entendi! Para encaminhar seu atendimento, qual é seu nome completo?');break;
+ case 'details':info.details=value;info.summary=value;step='name';showMessage('Obrigado por explicar! Qual é o seu nome completo?');break;
+ case 'name':if(value.length<2){step='name';showMessage('Por favor, informe seu nome.');return}info.name=value;step='phone';showMessage('Qual é seu telefone com DDD (WhatsApp, se tiver)?');break;
+ case 'phone':if(value.replace(/\D/g,'').length<10||value.length>24){step='phone';showMessage('Confira o telefone e informe o DDD.');return}info.phone=value;step='consent';setInput(false);showMessage('Você autoriza a Prime Imóveis a usar seu nome, telefone e as informações deste atendimento para responder à sua solicitação?');buttons(['Autorizo e enviar','Cancelar']);break;
+ }
+}
+async function sendLive(value){if(busy)return;busy=true;setInput(false);try{await call('visitor_reply',{conversation_id:session.id,token:session.token,message:value});await sync();field.value=''}catch(e){note.textContent=e.message||'Falha ao enviar';}finally{busy=false;if(step==='live')setInput(true,'Escreva para a equipe...')}}
+form.addEventListener('submit',e=>{e.preventDefault();let value=field.value.trim();if(step!=='live')field.value='';respond(value)});
+document.getElementById('prime-chat-toggle').addEventListener('click',async()=>{modal.classList.add('open');if(step==='start'){
+ try{session=JSON.parse(sessionStorage.getItem('prime_chat_session')||'null')}catch{session=null}
+ if(session?.id&&session?.token){step='live';setInput(true,'Escreva para a equipe...');note.textContent='Seu atendimento anterior foi recuperado.';await sync();startPoll()}else start();
+ }});
+document.getElementById('pc-close').addEventListener('click',()=>modal.classList.remove('open'));
+})();
+</script>
+
+<script id="prime-team-access-script">
+(function(){
+ 'use strict';
+ const SUPABASE_URL='https://nyjrvrdcgsktebyewlsr.supabase.co';
+ const SUPABASE_PUBLISHABLE_KEY='sb_publishable_GT0iDKn4-GXo61ez6Gkz9w_Hb1KpsRN';
+ const link=document.getElementById('access-team-link');
+ let currentRole='team';
+ function setRole(role){
+   currentRole=role;
+   document.getElementById('prime-access-role').value=role;
+   document.querySelectorAll('[data-prime-role]').forEach(b=>b.classList.toggle('active',b.dataset.primeRole===role));
+   const note=document.getElementById('prime-team-note');
+   const title=document.getElementById('prime-access-title');
+   const sub=document.getElementById('prime-access-subtitle');
+   const email=document.getElementById('prime-access-email');
+   const pass=document.getElementById('prime-access-password');
+   document.getElementById('prime-access-error').textContent='';
+   email.value=''; pass.value='';
+   if(role==='ceo'){
+     title.textContent='Painel do CEO';
+     sub.textContent='Entre com a conta principal do administrador para acessar o painel completo.';
+     note.textContent='Painel do CEO: use a conta principal cadastrada no Supabase. Depois do login, o painel abrirá normalmente.';
+     email.placeholder='Digite o e-mail do administrador';
+   }else{
+     title.textContent='Minha equipe';
+     sub.textContent='Use a conta da equipe para entrar e visualizar seus atendimentos.';
+     note.textContent='Minha equipe: entre com o e-mail e a senha já cadastrados. Depois do login, o painel abrirá normalmente.';
+     email.placeholder='Digite o e-mail cadastrado';
+   }
+ }
+ function openTeam(role){
+   document.body.classList.add('prime-team-open');
+   setRole(role||currentRole);
+   if(location.hash!=='#acesso-equipe')history.replaceState(null,'','#acesso-equipe');
+   window.scrollTo({top:0,behavior:'instant'});
+ }
+ function closeTeam(){
+   document.body.classList.remove('prime-team-open');
+   if(location.hash==='#acesso-equipe')history.replaceState(null,'',location.pathname+location.search);
+   window.scrollTo({top:0,behavior:'instant'});
+ }
+ link.addEventListener('click',e=>{e.preventDefault();openTeam('team')});
+ document.getElementById('prime-team-back').addEventListener('click',closeTeam);
+ document.querySelectorAll('[data-prime-role]').forEach(b=>b.addEventListener('click',()=>setRole(b.dataset.primeRole)));
+ document.getElementById('prime-forgot-btn').addEventListener('click',()=>{ location.href='atendimentos.html#recuperar'; });
+ document.getElementById('prime-open-full-link').addEventListener('click',()=>{ try{sessionStorage.setItem('prime_access_role',currentRole)}catch{} });
+ window.addEventListener('hashchange',()=>{if(location.hash==='#acesso-equipe')openTeam(currentRole);else document.body.classList.remove('prime-team-open')});
+ if(location.hash==='#acesso-equipe')openTeam('team');
+ document.getElementById('prime-access-form').addEventListener('submit', async (e)=>{
+   e.preventDefault();
+   const errorBox=document.getElementById('prime-access-error');
+   const btn=e.target.querySelector('button[type="submit"]');
+   errorBox.textContent='Entrando...';
+   btn.disabled=true;
+   try{
+     if(!window.supabase?.createClient) throw new Error('Não foi possível carregar o login agora. Confira sua internet e tente de novo.');
+     const supa=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);
+     const email=document.getElementById('prime-access-email').value.trim();
+     const password=document.getElementById('prime-access-password').value;
+     const {error}=await supa.auth.signInWithPassword({email,password});
+     if(error) throw error;
+     try{sessionStorage.setItem('prime_access_role',currentRole)}catch{}
+     errorBox.textContent='Login realizado com sucesso. Abrindo painel...';
+     location.href='atendimentos.html';
+   }catch(err){
+     errorBox.textContent='Não foi possível entrar. Confira o e-mail e a senha.';
+     console.warn(err?.message||err);
+   }finally{btn.disabled=false}
+  });
+})();
+</script>
+</body>
+</html>

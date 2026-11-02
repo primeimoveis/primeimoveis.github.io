@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Atendimentos | Prime Imóveis</title>
+<style>
+:root{font-family:Arial,Helvetica,sans-serif;color:#20232a;background:#f5f6f8}*{box-sizing:border-box}body{margin:0}header{background:#211e20;color:white;padding:16px 4%;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}header strong{font-size:18px}header a{color:white}button{cursor:pointer}button.primary{background:#c31d31;color:#fff;border:0;border-radius:8px;padding:10px 14px;font-weight:700}button.secondary{border:1px solid #ddd;background:white;padding:9px 12px;border-radius:8px}button:disabled{opacity:.6;cursor:wait}.text-link{border:0;background:none;padding:8px 0;color:#a31d33;text-decoration:underline;font-weight:700;font-size:14px;cursor:pointer}.auth-info{margin-top:14px;border:1px solid #dbe6ee;background:#f5f9fc;color:#24435a;padding:12px;border-radius:9px;font-size:13px;line-height:1.5}.auth-info:empty{display:none}.input-note{color:#707683;font-size:12px;margin:7px 0}input,select,textarea{font:inherit;padding:11px;border:1px solid #cfd2d8;border-radius:8px;max-width:100%}label{display:block;color:#525762;font-size:13px;margin-bottom:6px}.shell{max-width:1280px;margin:22px auto;padding:0 14px}.card{background:#fff;border:1px solid #e6e7ea;border-radius:14px;padding:18px;box-shadow:0 5px 20px #00000008}.login{max-width:440px;margin:55px auto}.form-field{margin:12px 0}.form-field input{width:100%}.notice{margin:12px 0;color:#9a2230;font-size:13px;white-space:pre-wrap}.tiny{color:#707683;font-size:12px}.top{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:14px}.top h1{font-size:25px;margin:0}.layout{display:grid;grid-template-columns:minmax(280px,375px) 1fr;gap:14px}.list{max-height:76vh;overflow:auto;display:flex;flex-direction:column;gap:8px}.item{width:100%;display:block;text-align:left;padding:13px;border:1px solid #e5e6e9;border-radius:9px;background:#fff}.item.active{border-color:#b61b2e;background:#fff7f8}.item .name{display:flex;justify-content:space-between;gap:5px;font-weight:700}.item small{color:#777}.tag{display:inline-block;background:#f3e7eb;color:#8f2030;font-weight:700;font-size:11px;padding:4px 7px;border-radius:14px}.messages{height:52vh;overflow:auto;display:flex;flex-direction:column;gap:8px;padding:15px;background:#f8f9fa;border:1px solid #e8eaee;border-radius:10px}.msg{max-width:85%;background:white;border:1px solid #e2e4e7;padding:10px 12px;border-radius:11px;white-space:pre-wrap;overflow-wrap:anywhere}.msg.staff{margin-left:auto;background:#fce6e9}.msg small{color:#6c7078;font-size:10px;display:block;margin-top:5px}.reply{display:flex;gap:8px;margin-top:12px}.reply textarea{width:100%;resize:vertical;min-height:52px}.info{background:#fafafa;border:1px solid #e8e8e8;border-radius:8px;padding:10px;line-height:1.8;font-size:13px;margin-bottom:12px}.tools{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.hidden{display:none!important}h2{font-size:17px;margin:0 0 10px}#filter{width:100%;margin:0 0 12px}.empty{color:#757a82;padding:25px;text-align:center}.statusline{font-size:12px;color:#777;margin:8px 0}
+@media(max-width:760px){.layout{grid-template-columns:1fr}.list{max-height:260px}.messages{height:43vh}.shell{margin:14px auto}}
+
+/* Configuracoes */
+.settings-wrap{display:grid;grid-template-columns:210px 1fr;gap:15px;align-items:start}
+.settings-menu{display:flex;flex-direction:column;gap:6px}
+.settings-menu button{text-align:left;border:1px solid #e4e7ec;border-radius:9px;background:white;padding:12px;font-size:13px}
+.settings-menu button.active{background:#fff0f2;color:#a51e30;border-color:#be3042;font-weight:bold}
+.settings-pane{display:none}.settings-pane.active{display:block}
+.settings-pane h2{font-size:20px}.settings-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.settings-fields .wide{grid-column:1/-1}.settings-fields input{width:100%}
+.settings-muted{font-size:13px;color:#69727e;line-height:1.6}.settings-action{margin-top:14px}
+.settings-note{margin-top:12px;font-size:13px;white-space:pre-wrap;color:#3f647a}
+.settings-warning{background:#fff9ee;border:1px solid #ebd8ac;border-radius:9px;padding:11px;color:#6b541f;font-size:13px;line-height:1.5}
+.settings-toggle{display:flex;gap:10px;align-items:center;padding:12px 0;border-bottom:1px solid #eff0f2}
+.settings-toggle input{width:18px;height:18px}
+.settings-team{width:100%;border-collapse:collapse;margin-top:10px}.settings-team th,.settings-team td{padding:11px;text-align:left;border-bottom:1px solid #e6e8ec;font-size:13px}
+body.prime-dark{background:#161a20;color:#e5e7eb}
+body.prime-dark .card,body.prime-dark .settings-menu button,body.prime-dark .item,body.prime-dark .msg,body.prime-dark input,body.prime-dark select,body.prime-dark textarea{background:#252b33;color:#f4f5f6;border-color:#454b55}
+body.prime-dark .messages,body.prime-dark .info{background:#1a2028;color:#e5e7eb;border-color:#454b55}
+body.prime-dark .tiny,body.prime-dark label,body.prime-dark .settings-muted{color:#b8bdc5}
+body.prime-dark .settings-menu button.active{background:#5b2731;border-color:#b74453}
+@media(max-width:760px){.settings-wrap{grid-template-columns:1fr}.settings-menu{flex-direction:row;overflow-x:auto}.settings-menu button{min-width:138px}.settings-fields{grid-template-columns:1fr}}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" defer></script>
+</head><body>
+<header><strong>PRIME IMÓVEIS · Atendimentos</strong><a href="index.html">Voltar ao site</a></header>
+<main class="shell">
+<section id="login" class="card login">
+<h1>Acesso da equipe</h1><p class="tiny">Entre com o e-mail e a senha cadastrados no Supabase. Somente colaboradores ativos têm acesso às conversas.</p>
+<form id="login-form"><div class="form-field"><label for="email">E-mail</label><input id="email" type="email" autocomplete="username" required></div><div class="form-field"><label for="password">Senha</label><input id="password" type="password" autocomplete="current-password" required></div><button class="primary" type="submit">Entrar</button></form>
+<button id="forgot-open" class="text-link" type="button">Esqueci minha senha</button>
+<div class="notice" id="login-error"></div>
+<p class="tiny">Use as credenciais da sua conta da equipe Prime Imóveis.</p>
+</section>
+<section id="forgot-panel" class="card login hidden">
+<h1>Recuperar acesso</h1>
+<p class="tiny">Informe o e-mail cadastrado na Prime Imóveis. Você receberá um link para definir uma nova senha.</p>
+<form id="forgot-form"><div class="form-field"><label for="forgot-email">E-mail da conta</label><input id="forgot-email" type="email" autocomplete="email" required></div><button type="submit" class="primary">Enviar link de recuperação</button></form>
+<div id="forgot-message" class="auth-info" role="status" aria-live="polite"></div>
+<button id="forgot-back" class="text-link" type="button">Voltar ao login</button>
+</section>
+<section id="reset-panel" class="card login hidden">
+<h1>Criar nova senha</h1>
+<p class="tiny">Seu link foi reconhecido. Digite uma nova senha para sua conta da equipe.</p>
+<form id="reset-form"><div class="form-field"><label for="new-password">Nova senha</label><input id="new-password" type="password" autocomplete="new-password" minlength="12" required></div>
+<div class="form-field"><label for="confirm-password">Confirmar nova senha</label><input id="confirm-password" type="password" autocomplete="new-password" minlength="12" required></div>
+<p class="input-note">Use no mínimo 12 caracteres. Não reutilize uma senha antiga.</p>
+<button type="submit" class="primary">Salvar nova senha</button></form>
+<div id="reset-message" class="auth-info" role="status" aria-live="polite"></div>
+</section>
+<section id="dashboard" class="hidden">
+  <div class="top"><div><h1>Conversas da equipe</h1><div id="user-info" class="tiny"></div></div><div class="tools"><button class="secondary" id="presence">Disponibilidade: —</button><button class="secondary" id="settings-open">⚙ Configurações</button><button class="secondary" id="refresh">Atualizar</button><button class="secondary" id="logout">Sair</button></div></div>
+  <div class="layout">
+    <div class="card"><h2>Atendimentos</h2><input id="filter" placeholder="Buscar nome, categoria ou telefone"><div id="list" class="list"><div class="empty">Carregando…</div></div><div class="statusline">Atualização automática a cada 15 segundos.</div></div>
+    <div class="card"><h2 id="thread-title">Selecione uma conversa</h2><div id="thread-info" class="info hidden"></div><div id="messages" class="messages"><div class="empty">As mensagens aparecerão aqui.</div></div><form id="reply-form" class="reply hidden"><textarea id="reply-text" maxlength="800" placeholder="Responder ao cliente..." required></textarea><button class="primary" type="submit">Enviar</button></form>
+    <div class="tools" style="margin-top:12px"><label for="change-status">Status</label><select id="change-status" disabled><option value="new">Novo</option><option value="in_progress">Em andamento</option><option value="waiting">Aguardando</option><option value="completed">Concluído</option><option value="cancelled">Cancelado</option></select><button id="save-status" class="secondary" disabled>Salvar status</button></div><div id="assignment" class="tools hidden" style="margin-top:12px"><label for="assign-to">Encaminhar para</label><select id="assign-to"></select><button id="assign-save" class="secondary">Transferir</button></div><div id="dashboard-error" class="notice"></div></div>
+  </div>
+</section>
+
+<section id="settings-screen" class="hidden" aria-label="Configurações da Prime Imóveis">
+  <div class="top"><div><h1>Configurações</h1><div class="tiny">Dados da empresa e preferências da equipe</div></div><button id="settings-back" class="secondary" type="button">← Voltar aos atendimentos</button></div>
+  <div class="settings-wrap">
+    <nav class="card settings-menu" aria-label="Seções de configurações">
+      <button type="button" data-settings-tab="company" class="active">🏢 Dados da empresa</button>
+      <button type="button" data-settings-tab="alerts">🔔 Notificações</button>
+      <button type="button" data-settings-tab="security">🔒 Segurança e acessos</button>
+      <button type="button" data-settings-tab="appearance">🎨 Aparência</button>
+      <button type="button" data-settings-tab="database">🗄 Banco e backups</button>
+    </nav>
+    <div class="card">
+      <section id="tab-company" class="settings-pane active">
+        <h2>Dados da empresa</h2><p class="settings-muted">Os dados são salvos no Supabase. Por segurança, só o administrador pode alterá-los. A atualização automática do site público será implementada em outra etapa.</p>
+        <form id="company-form" class="settings-fields">
+          <div class="wide"><label for="cfg-name">Nome da empresa</label><input id="cfg-name" maxlength="160" required></div>
+          <div><label for="cfg-cnpj">CNPJ</label><input id="cfg-cnpj" maxlength="20" placeholder="00.000.000/0000-00"></div>
+          <div><label for="cfg-phone">Telefone da empresa</label><input id="cfg-phone" maxlength="40"></div>
+          <div><label for="cfg-email">E-mail da empresa</label><input id="cfg-email" type="email" maxlength="180"></div>
+          <div><label for="cfg-instagram">Instagram</label><input id="cfg-instagram" maxlength="180" placeholder="@primeimoveis"></div>
+          <div class="wide"><label for="cfg-address">Endereço</label><input id="cfg-address" maxlength="250"></div>
+          <div class="wide"><label for="cfg-site">Site oficial</label><input id="cfg-site" maxlength="250" placeholder="https://"></div>
+          <div class="wide"><button class="primary" type="submit" id="company-save">Salvar dados da empresa</button></div>
+        </form><div id="company-note" class="settings-note" role="status"></div>
+      </section>
+      <section id="tab-alerts" class="settings-pane">
+        <h2>Preferências de notificações</h2><p class="settings-muted">As opções abaixo são guardadas em sua conta. O envio automático de notificações por e-mail ou WhatsApp ainda não está configurado.</p>
+        <label class="settings-toggle"><input type="checkbox" id="pref-leads"> Avisar sobre novos atendimentos</label>
+        <label class="settings-toggle"><input type="checkbox" id="pref-visits"> Avisar sobre visitas agendadas</label>
+        <label class="settings-toggle"><input type="checkbox" id="pref-processes"> Avisar sobre processos e documentação</label>
+        <button class="primary settings-action" id="prefs-save" type="button">Salvar preferências</button><div id="prefs-note" class="settings-note" role="status"></div>
+      </section>
+      <section id="tab-security" class="settings-pane">
+        <h2>Segurança e acessos</h2><p class="settings-muted">Você pode sair da conta e solicitar a redefinição da própria senha. A gestão de perfis de outros colaboradores fica restrita ao administrador.</p>
+        <button class="secondary" id="settings-reset-password" type="button">Recuperar ou alterar minha senha</button>
+        <div id="security-team" class="hidden"><h2 style="margin-top:22px">Colaboradores cadastrados</h2><p class="settings-muted">Consulta de acesso. Mudanças de cargos, convites e exclusões ainda exigem fluxo administrativo seguro.</p><div id="security-team-data"></div></div>
+      </section>
+      <section id="tab-appearance" class="settings-pane">
+        <h2>Aparência do painel</h2><p class="settings-muted">Escolha como o painel aparece neste navegador. A preferência também será salva na sua conta ao clicar em salvar.</p>
+        <label for="cfg-theme">Tema</label><select id="cfg-theme"><option value="light">Claro</option><option value="dark">Escuro</option></select>
+        <button class="primary settings-action" id="theme-save" type="button">Aplicar e salvar tema</button><div id="theme-note" class="settings-note" role="status"></div>
+      </section>
+      <section id="tab-database" class="settings-pane">
+        <h2>Banco de dados e backups</h2>
+        <p class="settings-muted">Sistema conectado ao projeto Supabase da Prime Imóveis. Nunca compartilhe sua chave secreta ou senhas.</p>
+        <div class="settings-warning">Este painel não cria backups automáticos. Antes de alterações importantes, configure e confira as opções de backup disponíveis no Supabase de acordo com seu plano.</div>
+        <p class="settings-muted">Teste a conexão do atendimento usando o botão abaixo. Ele não prova a saúde de todos os módulos do sistema.</p>
+        <button id="db-health" class="secondary" type="button">Testar função de atendimento</button><div id="db-health-note" class="settings-note" role="status"></div>
+      </section>
+    </div>
+  </div>
+</section>
+</main>
+<script>
+window.addEventListener('load',()=>{
+'use strict';
+// INSIRA A CHAVE PUBLISHABLE (ou anon) do Supabase; nunca a service_role/secret.
+const SUPABASE_URL='https://nyjrvrdcgsktebyewlsr.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY='sb_publishable_GT0iDKn4-GXo61ez6Gkz9w_Hb1KpsRN';
+const ENDPOINT=SUPABASE_URL+'/functions/v1/Prime-chat';
+const $=id=>document.getElementById(id);let db=null,all=[],selected=null,interval=null,currentRole=null,currentAvailable=true,loading=false;
+const statuses={new:'Novo',in_progress:'Em andamento',waiting:'Aguardando',completed:'Concluído',cancelled:'Cancelado'};
+const categories={buy:'Compra',rent:'Aluguel',advertise:'Anúncio de imóvel',regularization:'Regularização',other:'Outros'};
+const date=s=>s?new Date(s).toLocaleString('pt-BR'):'';
+function setError(message){$('dashboard-error').textContent=message||''}
+function elem(tag,cls,text){const el=document.createElement(tag);if(cls)el.className=cls;if(text!==undefined)el.textContent=String(text);return el}
+if(SUPABASE_PUBLISHABLE_KEY.startsWith('COLE_AQUI')){$('login-error').textContent='Antes de entrar, configure a chave publicável do projeto neste arquivo HTML.';return}
+if(!window.supabase?.createClient){$('login-error').textContent='Não foi possível carregar a biblioteca de login. Confira sua conexão.';return}
+// Capturar informações de recuperação antes de o Supabase processar o URL.
+const authUrlParams=new URLSearchParams(location.search);
+const authHashParams=new URLSearchParams(location.hash.slice(1));
+const recoveryFromUrl=authUrlParams.get('type')==='recovery'||authHashParams.get('type')==='recovery';
+const recoveryUrlError=authHashParams.get('error_description')||authUrlParams.get('error_description');
+let recoveryAuthorized=false;
+db=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);
+function showAuth(which){
+  $('login').classList.toggle('hidden',which!=='login');
+  $('forgot-panel').classList.toggle('hidden',which!=='forgot');
+  $('reset-panel').classList.toggle('hidden',which!=='reset');
+  $('dashboard').classList.add('hidden');
+}
+if(location.hash==='#recuperar'||location.hash==='#forgot'){showAuth('forgot');}
+function startPasswordReset(){recoveryAuthorized=true;showAuth('reset');$('reset-message').textContent='';}
+db.auth.onAuthStateChange((event,session)=>{
+  if(event==='PASSWORD_RECOVERY'&&session){startPasswordReset();}
+});
+$('forgot-open').onclick=()=>{$('forgot-email').value=$('email').value.trim();$('forgot-message').textContent='';showAuth('forgot')};
+$('forgot-back').onclick=()=>{showAuth('login');$('login-error').textContent='';};
+$('forgot-form').addEventListener('submit',async e=>{
+  e.preventDefault();
+  const btn=e.target.querySelector('button[type=submit]');
+  const notice=$('forgot-message');
+  if(location.protocol!=='https:'&&location.hostname!=='localhost'){
+    notice.textContent='Para recuperar a senha, abra o painel pelo endereço HTTPS publicado (como GitHub Pages). Um arquivo local não pode receber o link com segurança.';
+    return;
+  }
+  btn.disabled=true;
+  notice.textContent='Solicitando link de recuperação...';
+  try{
+    const redirectTo=location.origin+location.pathname;
+    const {error}=await db.auth.resetPasswordForEmail($('forgot-email').value.trim(),{redirectTo});
+    if(error)throw error;
+    notice.textContent='Se esse e-mail estiver cadastrado, você receberá um link para criar uma nova senha. Confira também o spam. O link deve voltar para este painel.';
+  }catch(err){
+    notice.textContent='Não foi possível solicitar o link agora. Confira a configuração do Supabase e tente novamente.';
+    console.warn('Falha na recuperação:',err?.message||'Erro');
+  }finally{btn.disabled=false}
+});
+$('reset-form').addEventListener('submit',async e=>{
+  e.preventDefault();
+  const notice=$('reset-message');
+  const password=$('new-password').value;
+  const confirmation=$('confirm-password').value;
+  if(!recoveryAuthorized){notice.textContent='Link de recuperação inválido ou expirado. Solicite outro link.';return;}
+  if(password.length<12){notice.textContent='A nova senha deve ter pelo menos 12 caracteres.';return;}
+  if(password!==confirmation){notice.textContent='As duas senhas não coincidem.';return;}
+  const btn=e.target.querySelector('button[type=submit]');btn.disabled=true;
+  notice.textContent='Salvando nova senha...';
+  try{
+    const {error}=await db.auth.updateUser({password});
+    if(error)throw error;
+    recoveryAuthorized=false;
+    await db.auth.signOut();
+    // Remover fragmentos de autenticação da barra de endereço.
+    history.replaceState(null,'',location.pathname);
+    $('new-password').value='';$('confirm-password').value='';$('password').value='';
+    showAuth('login');
+    $('login-error').textContent='Senha alterada! Agora entre com o e-mail e a nova senha.';
+  }catch(err){
+    notice.textContent='Não foi possível alterar a senha. O link pode ter expirado. Solicite um novo.';
+    console.warn('Falha ao atualizar senha:',err?.message||'Erro');
+  }finally{btn.disabled=false}
+});
+async function api(action,extra={}){
+ const {data:{session}}=await db.auth.getSession();if(!session?.access_token)throw Error('Sua sessão expirou. Entre novamente.');
+ const r=await fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+session.access_token},body:JSON.stringify({action,...extra})});
+ let data;try{data=await r.json()}catch{throw Error('Erro ao consultar o servidor')};if(!r.ok||!data.ok)throw Error(data.error||'Falha na conexão');return data;
+}
+async function enter(){try{const {data:{user}}=await db.auth.getUser();ownId=user?.id||null;const profile=await api('staff_me');currentRole=profile.profile.role;currentAvailable=profile.profile.chat_available;$('user-info').textContent=`${profile.profile.name} · ${currentRole}`;setPresence();if(['ceo','assistant'].includes(currentRole)){const team=await api('staff_team');$('assignment').classList.remove('hidden');$('assign-to').replaceChildren();for(const person of team.team){const opt=elem('option','',person.full_name+' ('+person.role+')');opt.value=person.id;$('assign-to').append(opt)}}$('login').classList.add('hidden');$('dashboard').classList.remove('hidden');await loadList();if(interval)clearInterval(interval);interval=setInterval(async()=>{await loadList(true);if(selected)await openThread(selected,true)},15000)}catch(e){$('login-error').textContent=e.message;await db.auth.signOut()}}
+function setPresence(){$('presence').textContent=currentAvailable?'Disponível para novos chats':'Indisponível para novos chats'}
+async function loadList(silent=false){if(loading)return;loading=true;try{const r=await api('staff_list');all=r.items||[];drawList();if(!silent)setError('')}catch(e){if(!silent)setError(e.message)}finally{loading=false}}
+function drawList(){const term=$('filter').value.toLowerCase().trim();const list=$('list');list.replaceChildren();const shown=all.filter(x=>[x.client_name,x.client_phone,x.summary,categories[x.category],x.assigned_name].join(' ').toLowerCase().includes(term));
+ if(!shown.length){list.appendChild(elem('div','empty','Nenhum atendimento encontrado.'));return}
+ for(const item of shown){const button=elem('button','item'+(selected===item.id?' active':''));button.type='button';const name=elem('div','name');name.append(elem('span','',item.client_name||'Cliente sem nome'),elem('span','tag',statuses[item.status]||item.status));button.append(name,elem('div','tiny',`${categories[item.category]||item.category} · ${item.assigned_name||'Na fila'}`),elem('small','',date(item.updated_at)));button.onclick=()=>openThread(item.id);list.appendChild(button)}
+}
+async function openThread(id,silent=false){selected=id;drawList();try{const data=await api('staff_thread',{conversation_id:id});const c=data.conversation;$('thread-title').textContent=c.client_name||'Atendimento';const info=$('thread-info');info.classList.remove('hidden');info.replaceChildren();const lines=[`Telefone: ${c.client_phone||'Não informado'}`,`Assunto: ${categories[c.category]||c.category}`,`Resumo: ${c.summary||'—'}`,`Criado: ${date(c.created_at)}`];for(const line of lines)info.append(elem('div','',line));const msgs=$('messages');msgs.replaceChildren();for(const m of data.messages){const div=elem('div','msg'+(m.sender_type==='staff'?' staff':''));div.append(elem('div','',m.message),elem('small','',`${m.sender_type==='staff'?'Equipe':m.sender_type==='bot'?'Assistente':'Cliente'} · ${date(m.created_at)}`));msgs.append(div)}msgs.scrollTop=msgs.scrollHeight;$('change-status').value=c.status;if(['ceo','assistant'].includes(currentRole))$('assign-to').value=c.assigned_to||'';$('change-status').disabled=false;$('save-status').disabled=false;$('reply-form').classList.toggle('hidden',c.status==='completed'||c.status==='cancelled');if(!silent)setError('')}catch(e){if(!silent)setError(e.message)}}
+$('login-form').addEventListener('submit',async e=>{e.preventDefault();$('login-error').textContent='Verificando acesso...';const btn=e.target.querySelector('button');btn.disabled=true;const {error}=await db.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});if(error){$('login-error').textContent='Não foi possível entrar. Confira e-mail e senha.'}else{$('login-error').textContent='';await enter()}btn.disabled=false});
+$('logout').onclick=async()=>{if(interval)clearInterval(interval);await db.auth.signOut();location.reload()};
+$('refresh').onclick=()=>loadList();
+$('presence').onclick=async()=>{try{await api('staff_presence',{available:!currentAvailable});currentAvailable=!currentAvailable;setPresence();setError('')}catch(e){setError(e.message)}};
+$('filter').oninput=drawList;
+$('reply-form').onsubmit=async e=>{e.preventDefault();if(!selected)return;const msg=$('reply-text').value.trim();if(!msg)return;const btn=e.target.querySelector('button');btn.disabled=true;try{await api('staff_reply',{conversation_id:selected,message:msg});$('reply-text').value='';await openThread(selected)}catch(e){setError(e.message)}finally{btn.disabled=false}};
+$('assign-save').onclick=async()=>{if(!selected||!$('assign-to').value)return;try{await api('staff_assign',{conversation_id:selected,assigned_to:$('assign-to').value});await openThread(selected);await loadList()}catch(e){setError(e.message)}};
+$('save-status').onclick=async()=>{if(!selected)return;try{await api('staff_status',{conversation_id:selected,status:$('change-status').value});await openThread(selected);await loadList()}catch(e){setError(e.message)}};
+
+// Configurações: persistência no Supabase com regras RLS
+const settingsTabs=['company','alerts','security','appearance','database'];
+let ownId=null;
+function settingsNote(id,msg){$(id).textContent=msg||''}
+function setTheme(theme){document.body.classList.toggle('prime-dark',theme==='dark');$('cfg-theme').value=theme==='dark'?'dark':'light';}
+try{setTheme(localStorage.getItem('prime-panel-theme')||'light')}catch{}
+function switchSettingsTab(tab){
+ if(!settingsTabs.includes(tab))return;
+ for(const t of settingsTabs){$('tab-'+t).classList.toggle('active',t===tab);document.querySelector('[data-settings-tab="'+t+'"]').classList.toggle('active',t===tab)}
+}
+for(const btn of document.querySelectorAll('[data-settings-tab]'))btn.addEventListener('click',()=>switchSettingsTab(btn.dataset.settingsTab));
+$('settings-open').onclick=async()=>{
+ $('dashboard').classList.add('hidden');$('settings-screen').classList.remove('hidden');switchSettingsTab('company');
+ await Promise.all([loadCompany(),loadPreferences(),loadSecurityTeam()]);
+};
+$('settings-back').onclick=()=>{$('settings-screen').classList.add('hidden');$('dashboard').classList.remove('hidden')};
+function authOnly(){if(!ownId)throw Error('Entre novamente para acessar as configurações.');}
+async function loadCompany(){
+ settingsNote('company-note','Carregando dados...');
+ try{authOnly();const {data,error}=await db.from('prime_company_settings').select('*').eq('id',1).single();if(error)throw error;
+ for(const [field,key] of Object.entries({name:'company_name',cnpj:'cnpj',phone:'company_phone',email:'company_email',instagram:'company_instagram',address:'company_address',site:'company_website'}))$('cfg-'+field).value=data[key]||'';
+ const canEdit=currentRole==='ceo';for(const input of document.querySelectorAll('#company-form input'))input.readOnly=!canEdit;
+ $('company-save').disabled=!canEdit;settingsNote('company-note',canEdit?'Você pode atualizar estes dados.':'Somente o administrador pode editar esses dados.');
+ }catch(e){settingsNote('company-note','Não foi possível carregar dados da empresa. Execute o arquivo 01_configuracoes_supabase.sql no SQL Editor e tente novamente.');}
+}
+$('company-form').addEventListener('submit',async e=>{
+ e.preventDefault();if(currentRole!=='ceo')return;
+ const data={company_name:$('cfg-name').value.trim(),cnpj:$('cfg-cnpj').value.trim(),company_phone:$('cfg-phone').value.trim(),company_email:$('cfg-email').value.trim(),company_instagram:$('cfg-instagram').value.trim(),company_address:$('cfg-address').value.trim(),company_website:$('cfg-site').value.trim(),updated_at:new Date().toISOString()};
+ if(!data.company_name){settingsNote('company-note','Informe o nome da empresa.');return}
+ $('company-save').disabled=true;settingsNote('company-note','Salvando...');
+ try{const {error}=await db.from('prime_company_settings').update(data).eq('id',1);if(error)throw error;settingsNote('company-note','Dados da empresa salvos no Supabase.');}
+ catch(e){settingsNote('company-note','Não foi possível salvar. Verifique as permissões e a tabela de configurações.');}
+ finally{$('company-save').disabled=false}
+});
+async function loadPreferences(){
+ try{authOnly();const {data,error}=await db.from('prime_user_preferences').select('*').eq('user_id',ownId).maybeSingle();if(error)throw error;
+ $('pref-leads').checked=data?.notify_new_leads??true;$('pref-visits').checked=data?.notify_visits??true;$('pref-processes').checked=data?.notify_processes??true;
+ if(data?.theme){setTheme(data.theme);try{localStorage.setItem('prime-panel-theme',data.theme)}catch{}}
+ settingsNote('prefs-note','');
+ }catch(e){settingsNote('prefs-note','Não foi possível carregar preferências. Confira se executou o SQL das configurações.');}
+}
+async function savePrefs(){
+ authOnly();const prefs={user_id:ownId,notify_new_leads:$('pref-leads').checked,notify_visits:$('pref-visits').checked,notify_processes:$('pref-processes').checked,theme:$('cfg-theme').value,updated_at:new Date().toISOString()};
+ const {error}=await db.from('prime_user_preferences').upsert(prefs,{onConflict:'user_id'});if(error)throw error;
+}
+$('prefs-save').onclick=async()=>{settingsNote('prefs-note','Salvando...');try{await savePrefs();settingsNote('prefs-note','Preferências salvas. O envio automático de avisos ainda será desenvolvido.')}catch(e){settingsNote('prefs-note','Não foi possível salvar. Verifique a configuração da tabela.')}};
+$('theme-save').onclick=async()=>{
+ const theme=$('cfg-theme').value;setTheme(theme);try{localStorage.setItem('prime-panel-theme',theme)}catch{}
+ settingsNote('theme-note','Aplicado neste navegador. Salvando na conta...');
+ try{await savePrefs();settingsNote('theme-note','Tema aplicado e salvo na sua conta.')}catch(e){settingsNote('theme-note','Tema aplicado neste navegador, mas ainda não foi salvo no Supabase.')}
+};
+async function loadSecurityTeam(){
+ $('security-team').classList.toggle('hidden',currentRole!=='ceo');
+ if(currentRole!=='ceo')return;
+ const place=$('security-team-data');place.replaceChildren();
+ try{const {team}=await api('staff_team');const table=elem('table','settings-team');const head=elem('tr','');for(const title of ['Colaborador','Cargo','Disponibilidade'])head.append(elem('th','',title));table.append(head);
+ for(const member of team){const row=elem('tr','');for(const v of [member.full_name||'Sem nome',member.role||'',member.chat_available?'Disponível':'Indisponível'])row.append(elem('td','',v));table.append(row)}place.append(table);
+ }catch(e){place.textContent='Não foi possível consultar a equipe neste momento.'}
+}
+$('settings-reset-password').onclick=async()=>{
+ if(interval)clearInterval(interval);
+ await db.auth.signOut();$('dashboard').classList.add('hidden');$('settings-screen').classList.add('hidden');
+ $('forgot-email').value=$('email').value.trim();showAuth('forgot');$('forgot-message').textContent='Informe seu e-mail para receber o link de recuperação de senha.';
+};
+$('db-health').onclick=async()=>{
+ settingsNote('db-health-note','Testando...');
+ try{const r=await fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'health'})});const o=await r.json();settingsNote('db-health-note',r.ok&&o.ok?'Função Prime-chat respondeu corretamente.':'Função retornou um erro.');}
+ catch(e){settingsNote('db-health-note','Não foi possível conectar à função de atendimento.')}
+};
+(async()=>{
+  if(recoveryUrlError){
+    $('login-error').textContent='Este link de recuperação expirou ou é inválido. Toque em “Esqueci minha senha” para receber um novo.';
+    history.replaceState(null,'',location.pathname);
+    return;
+  }
+  const {data:{session}}=await db.auth.getSession();
+  if(recoveryFromUrl){
+    if(session){startPasswordReset();}
+    else{$('login-error').textContent='Link de recuperação inválido ou expirado. Solicite um novo pelo botão abaixo.';}
+    return;
+  }
+  if(recoveryAuthorized)return;
+  if(session)await enter();
+})();
+});
+</script></body></html>
