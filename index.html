@@ -3,9 +3,10 @@
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="canonical" href="https://primeimoveis.github.io/">
 <!-- Identidade visual da Prime Imóveis no navegador e no Google -->
-<link rel="icon" type="image/png" sizes="192x192" href="/favicon.png">
-<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon.png?v=20261122">
+<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=20261122">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=20261122">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_BR">
 <meta property="og:site_name" content="Prime Imóveis e Regularização">
@@ -778,6 +779,7 @@ body.prime-team-open > header.brandbar{z-index:50;isolation:isolate;}
 #prime-panel-root .prime-inventory-actions .prime-property-retire:hover{background:#ffe2e7}
 #prime-panel-root .prime-inventory-actions .prime-property-restore{border:1px solid #b3d5b7;background:#f0fff0;color:#1e6e38;font-weight:800}
 #prime-panel-root .prime-inventory-actions .prime-property-restore:hover{background:#e1f6e2}
+#prime-panel-root .prime-inventory-actions .prime-property-lock{display:inline-flex;align-items:center;padding:9px 12px;border-radius:8px;background:#f2f3f6;color:#555d68;font-size:12px;line-height:1.35;border:1px solid #d6dae0;max-width:300px}
 #prime-panel-root .prime-inventory-actions button:disabled{opacity:.55;cursor:wait}
 
 #prime-panel-root .prime-inventory-count{font-size:13px;color:#606773;line-height:1.5;margin:4px 0 12px}
@@ -1136,7 +1138,7 @@ body.prime-team-open .prime-storage-banner{display:none!important}
     <div class="prime-prop-drawer-body">
       <div class="prime-prop-filters">
         <input id="prime-prop-search" type="search" aria-label="Buscar imóveis" placeholder="Buscar título, bairro ou cidade">
-        <select id="prime-prop-filter" aria-label="Filtrar situação"><option value="all">Todas situações</option><option value="draft">Rascunhos</option><option value="published">Publicados</option><option value="sold">Vendidos</option><option value="rented">Alugados</option><option value="archived">Arquivados</option></select>
+        <select id="prime-prop-filter" aria-label="Filtrar situação"><option value="all">Em carteira (sem arquivados)</option><option value="draft">Rascunhos</option><option value="published">Publicados</option><option value="sold">Vendidos</option><option value="rented">Alugados</option><option value="archived">Arquivados</option></select>
         <select id="prime-prop-type-filter" aria-label="Filtrar tipo"><option value="all">Todos os tipos</option><option value="house">Casas</option><option value="apartment">Apartamentos</option><option value="land">Terrenos</option><option value="commercial">Comerciais</option><option value="rural">Rurais</option><option value="other">Outros</option></select>
         <select id="prime-prop-purpose-filter" aria-label="Filtrar finalidade"><option value="all">Venda e aluguel</option><option value="sale">Venda</option><option value="rent">Aluguel</option></select>
         <select id="prime-prop-sort" aria-label="Ordenar imóveis"><option value="recent">Mais recentes</option><option value="price-low">Menor preço</option><option value="price-high">Maior preço</option><option value="title">Nome A–Z</option></select>
@@ -2448,7 +2450,7 @@ function primeRenderPropertyList(){
  const type=$('prime-prop-type-filter').value,purpose=$('prime-prop-purpose-filter').value,sort=$('prime-prop-sort').value;
  const rows=primePropertyRows.filter(r=>{
   const d=primeSafeDetails(r);
-  return (filt==='all'||r.status===filt)&&(type==='all'||r.property_type===type)
+  return ((filt==='all'&&r.status!=='archived')||r.status===filt)&&(type==='all'||r.property_type===type)
    &&(purpose==='all'||r.purpose===purpose||(d.dual_offer===true&&Number(d.alternate_price)>0))
    &&[r.title,r.neighborhood,r.city,r.description,d.reference_code].join(' ').toLocaleLowerCase('pt-BR').includes(search);
  }).slice();
@@ -2503,7 +2505,7 @@ function primeRenderPropertyList(){
   const actions=primePropertyEl('div','prime-inventory-actions');
   if(primeCanEditProperty(p)){
    const edit=primePropertyEl('button','secondary','✎ Editar anúncio');edit.type='button';edit.addEventListener('click',()=>primePropertyFill(p));actions.append(edit);
-   if(['published','draft'].includes(p.status)){
+   if(['published','draft','sold','rented'].includes(p.status)){
     const retire=primePropertyEl('button','prime-property-retire',p.status==='published'?'✕ Retirar imóvel':'▣ Arquivar imóvel');
     retire.type='button';retire.title='Retirar da divulgação sem perder fotos nem histórico';
     retire.addEventListener('click',()=>primeChangePropertyVisibility(p,'archived'));actions.append(retire);
@@ -2512,6 +2514,12 @@ function primeRenderPropertyList(){
     restore.type='button';restore.title='Restaurar como rascunho, sem publicar automaticamente';
     restore.addEventListener('click',()=>primeChangePropertyVisibility(p,'draft'));actions.append(restore);
    }
+  }else{
+   const permission=currentRole==='broker'
+    ? 'Somente o CEO, a administração ou o corretor responsável podem alterar este imóvel.'
+    : 'Entre como CEO ou administração para alterar este imóvel.';
+   const lock=primePropertyEl('span','prime-property-lock','🔒 Retirar / restaurar: sem permissão');
+   lock.title=permission;lock.setAttribute('aria-label',permission);actions.append(lock);
   }
   const visit=primePropertyEl('button','secondary','📅 Visita');visit.type='button';visit.addEventListener('click',()=>primeLinkedStart('visit',{propertyId:p.id}));actions.append(visit);
   const deal=primePropertyEl('button','secondary','🤝 Negociação');deal.type='button';deal.addEventListener('click',()=>primeLinkedStart('neg',{propertyId:p.id}));actions.append(deal);
@@ -2535,7 +2543,7 @@ async function primeChangePropertyVisibility(row, targetStatus){
  if(primePropertyStatusSaving)return;
  if(!primeCanEditProperty(row)){primeMsg('Sua conta não tem permissão para alterar este imóvel.');return;}
  if(!['archived','draft'].includes(targetStatus))return;
- if(targetStatus==='archived' && !['published','draft'].includes(row.status))return;
+ if(targetStatus==='archived' && !['published','draft','sold','rented'].includes(row.status))return;
  if(targetStatus==='draft' && row.status!=='archived')return;
  const retiring=targetStatus==='archived';
  const prompt=retiring
